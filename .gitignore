@@ -1,4 +1,7 @@
 *.[oa]
 *.[nes]
+*.cfg
+*.net
+*.dx
 main
 
