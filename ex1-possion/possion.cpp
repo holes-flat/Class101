@@ -136,6 +136,9 @@ int main(int argc, char **argv){
 	solver.solve(u_h, f_h);
 
 	/// 输出解，画图
+	/**
+	 * 对Tecplot输出的源码格式做了小修改。
+	 */
 	u_h.writeTecplotData("u.dat");
 
 	/// 输出误差
