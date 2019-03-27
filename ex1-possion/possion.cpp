@@ -20,14 +20,14 @@
  * @brief 精确解　\f$ u(x,y) = \sin(\pi x)\sin(2\pi y) \f$.
  */
 double u(const double *p){
-	return sin(PI*p[0]) * sin(2*PI*p[1]);
+	return sin(PI*p[0]) * sin(2*PI*p[1]) + p[0];
 }
 
 /**
  * @brief 右端项  \f$ f(x,y) = 5\pi^2 u(x,y) \f$.
  */
 double f(const double *p){
-	return 5*PI*PI*u(p);
+	return 5*PI*PI*(u(p)-p[0]);
 }
 
 int main(int argc, char **argv){
@@ -112,13 +112,13 @@ int main(int argc, char **argv){
 	 * 		- 构造稀疏矩阵
 	 */
 	StiffMatrix<2,double> stiff_matrix(fem_space);
-	stiff_matrix.algebricAccuracy() = 4; 
+	stiff_matrix.algebricAccuracy() = 6; 
 	stiff_matrix.build();
 	
 	FEMFunction<double,2> u_h(fem_space);
 
 	Vector<double> f_h;
-	Operator::L2Discretize(&f, fem_space, f_h, 4);
+	Operator::L2Discretize(&f, fem_space, f_h, 6);
 	
 	/**
 	 * Dirichlet 边界条件，根据材料标识给出。
